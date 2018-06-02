@@ -1,0 +1,27 @@
+## migrations file
+## **/migrations/**
+## !**/migrations
+## !**/migrations/__init__.py
+
+# vim swap
+*.swp
+.*.swp
+#[0-9]*.py
+## Directory-based project format:
+.idea/
+
+# Distribution / packaging
+work
+log
+.cache
+
+
+### Python template
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+## SQLite
+db.sqlite3
+
+settings.py
