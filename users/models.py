@@ -1,21 +1,47 @@
 from django.db import models
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
 from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
-
-# Create your models here.
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(
-        'User ID',
-        max_length=150,
+        '아이디',
+        max_length=32,
         unique=True,
-        help_text=_('Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
-        validators=[],
+        help_text=_('아이디를 입력해 주세요.'),
+        validators=[
+            MinLengthValidator(4, '4자 이상 32자 이하로 입력해주세요.'),
+            MaxLengthValidator(32, '4자 이상 32자 이하로 입력해주세요.'),
+            RegexValidator(r'^[a-z0-9]+$', '알파벳 소문자와 숫자만 허용됩니다.')
+        ],
         error_messages={
-            'unique': _("A user with that username already exists."),
+            'unique': '이미 존재하는 아이디 입니다.',
         },
     )
-    email = models.EmailField(_('email address'), blank=True)
+    email = models.EmailField(
+        '이메일',
+        blank=True,
+        unique=True,
+        error_messages={
+            'unique': '이미 가입된 이메일입니다.'
+        }
+    )
+    class_number = models.CharField(
+        '학번',
+        max_length=8,
+        unique=True,
+        help_text='학번을 입력해 주세요.',
+        validators=[
+            MinLengthValidator(8, '8자의 학번을 입력해주세요.'),
+            MaxLengthValidator(8, '8자의 학번을 입력해주세요.'),
+            RegexValidator(r'^[0-9]+$', '숫자만 허용됩니다.')
+        ],
+        error_messages={
+            'unique': '이미 가입된 학번입니다.'
+        }
+    )
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
@@ -35,9 +61,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    REQUIRED_FIELDS = ['email', 'class_number']
 
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
-        abstract = True
+
+    def __str__(self):
+        return self.username
