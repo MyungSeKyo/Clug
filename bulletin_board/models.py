@@ -1,10 +1,9 @@
 from django.db import models
 
-# Create your models here.
-
 
 class Post(models.Model):
     title = models.CharField('Title', max_length=50)
+    author = models.ForeignKey('users.User', on_delete=models.CASCADE)
     content = models.TextField('Content')
     create_date = models.DateTimeField('Create Date', auto_now_add=True)
     modify_date = models.DateTimeField('Modify Date', auto_now=True)
@@ -17,7 +16,7 @@ class Post(models.Model):
         return self.title
 
     def get_previous_post(self):
-        return self.get_previous_by_modify_date()
+        return self.get_previous_by_create_date()
 
     def get_next_post(self):
-        return self.get_next_by_modify_date()
+        return self.get_next_by_create_date()
