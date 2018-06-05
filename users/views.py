@@ -11,16 +11,9 @@ class LoginView(views.LoginView):
         context['next'] = self.request.META.get('HTTP_REFERER', '/')
         return context
 
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return HttpResponseRedirect(self.request.META.get('HTTP_REFERER', '/'))
-        else:
-            return super(LoginView, self).get(request, *args, **kwargs)
-
 
 class LogoutView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         logout(self.request)
         return self.request.META.get('HTTP_REFERER', '/')
-
