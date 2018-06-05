@@ -14,7 +14,6 @@
         body {
             padding-top: 50px;
         }
-
     </style>
 </head>
 <body>
@@ -28,13 +27,26 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand" href="#">CLUG</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#">Github</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'users:logout' %}">Logout</a></li>
+                            <li><a href="#">Change Password</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'users:login' %}">Sign in</a></li>
+                    <li><a href="#contact">Sign up</a></li>
+                {% endif %}
             </ul>
         </div>
 
