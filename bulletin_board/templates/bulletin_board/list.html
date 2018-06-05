@@ -10,54 +10,14 @@
             <th class="col-xs-2">작성자</th>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>첫 게시글</td>
-                <td>2018.6.5</td>
-                <td>명세교</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>첫 게시글</td>
-                <td>2018.6.5</td>
-                <td>명세교</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>첫 게시글</td>
-                <td>2018.6.5</td>
-                <td>명세교</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>첫 게시글</td>
-                <td>2018.6.5</td>
-                <td>명세교</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>첫 게시글</td>
-                <td>2018.6.5</td>
-                <td>명세교</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>첫 게시글</td>
-                <td>2018.6.5</td>
-                <td>명세교</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>첫 게시글</td>
-                <td>2018.6.5</td>
-                <td>명세교</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>첫 게시글</td>
-                <td>2018.6.5</td>
-                <td>명세교</td>
-            </tr>
+            {% for post in object_list %}
+                <tr>
+                    <td>{{ post.id }}</td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.modify_date }}</td>
+                    <td>{{ post.author.username }}</td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
         <nav aria-label="Page navigation" style="text-align: center">
