@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from bulletin_board.models import Post
+from posts.models import Post
 
 
 class PostAdmin(admin.ModelAdmin):

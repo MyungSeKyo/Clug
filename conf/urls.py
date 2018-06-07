@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from bulletin_board.views import PostListView
+from posts.views import PostListView
 
 urlpatterns = [
     path('', PostListView.as_view()),

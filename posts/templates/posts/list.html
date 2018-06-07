@@ -1,4 +1,4 @@
-{%  extends "bulletin_board/base.html" %}
+{%  extends "posts/base.html" %}
 
 {% block content %}
     <div class="container" style="margin-top: 50px">
@@ -6,8 +6,8 @@
             <thead>
             <th class="col-xs-1">번호</th>
             <th class="col-xs-5">제목</th>
-            <th class="col-xs-2">작성일</th>
-            <th class="col-xs-2">작성자</th>
+            <th class="col-xs-1">작성일</th>
+            <th class="col-xs-1">작성자</th>
             </thead>
             <tbody>
             {% for post in object_list %}
