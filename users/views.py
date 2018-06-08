@@ -32,3 +32,11 @@ class LogoutView(RedirectView):
 class SignupView(CreateView):
     form_class = UserCreationForm
     template_name = 'users/signup.html'
+
+class PasswordChangeView(views.PasswordChangeView):
+    template_name = 'users/password_change.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        messages.info(self.request, "비밀번호가 변경되었습니다.")
+        return super(PasswordChangeView, self).form_valid(form)
