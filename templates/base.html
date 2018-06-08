@@ -42,12 +42,12 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{% url 'users:logout' %}">Logout</a></li>
-                            <li><a href="#">Change Password</a></li>
+                            <li><a href="{% url 'users:password_change' %}">Change Password</a></li>
                         </ul>
                     </li>
                 {% else %}
                     <li><a href="{% url 'users:login' %}">Sign in</a></li>
-                    <li><a href="#contact">Sign up</a></li>
+                    <li><a href="{% url 'users:signup' %}">Sign up</a></li>
                 {% endif %}
             </ul>
         </div>
