@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.core.validators import MinLengthValidator, MaxLengthValidator, RegexValidator
+from django.core.validators import MinLengthValidator, RegexValidator
 from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
 
 
@@ -10,7 +10,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         '아이디',
         max_length=32,
         unique=True,
-        help_text=_('아이디를 입력해 주세요.'),
+        help_text='아이디를 입력해 주세요.',
         validators=[
             MinLengthValidator(4, '4자 이상 32자 이하로 입력해주세요.'),
             RegexValidator(r'^[a-z0-9]+$', '알파벳 소문자와 숫자만 허용됩니다.')
@@ -73,7 +73,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'class_number']
+    REQUIRED_FIELDS = ['email', 'class_number', 'phone_number']
 
     class Meta:
         verbose_name = _('user')
