@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if form.errors %}
+        <!-- 에러발생시 -->
+        <p>ID나 비밀번호가 일치하지 않습니다.</p>
+        <h1>{{ form.errors }}</h1>
+    {% endif %}
+    <!-- 로그인 폼 -->
+    <form method="post" action="{% url 'users:signup' %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}" />
+        {{ form.as_p }}
+        <button type="submit">회원가입</button>
+    </form>
+{% endblock content %}
