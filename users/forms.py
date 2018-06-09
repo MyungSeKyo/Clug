@@ -4,7 +4,7 @@ from django.contrib.auth import password_validation
 from users.models import User
 
 
-class UserCreationForm(forms.ModelForm):
+class SignupForm(forms.ModelForm):
     password1 = forms.CharField(
         label="비밀번호",
         strip=False,
@@ -31,6 +31,7 @@ class UserCreationForm(forms.ModelForm):
             raise forms.ValidationError(
                 '이미 가입된 이메일 입니다.'
             )
+        return email
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
@@ -38,6 +39,7 @@ class UserCreationForm(forms.ModelForm):
             raise forms.ValidationError(
                 '이미 가입된 휴대폰 번호 입니다.'
             )
+        return phone_number
 
     def clean_class_number(self):
         class_number = self.cleaned_data['class_number']
@@ -45,6 +47,7 @@ class UserCreationForm(forms.ModelForm):
             raise forms.ValidationError(
                 '이미 가입된 학번 입니다.'
             )
+        return class_number
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
