@@ -1,7 +1,8 @@
 from django.contrib.auth import views, logout
-from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import RedirectView, CreateView
 from django.contrib import messages
+from django.views.generic import RedirectView, CreateView
+from django.urls import reverse_lazy
+from .forms import SignupForm
 
 
 class LoginView(views.LoginView):
@@ -30,8 +31,14 @@ class LogoutView(RedirectView):
 
 
 class SignupView(CreateView):
-    form_class = UserCreationForm
+    form_class = SignupForm
     template_name = 'users/signup.html'
+    success_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        messages.info(self.request, "회원가입되었습니다.")
+        return super(SignupView, self).form_valid(form)
+
 
 class PasswordChangeView(views.PasswordChangeView):
     template_name = 'users/password_change.html'
