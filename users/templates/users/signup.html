@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<div class="container">
     {% if form.errors %}
-        <!-- 에러발생시 -->
-        <p>ID나 비밀번호가 일치하지 않습니다.</p>
-        <h1>{{ form.errors }}</h1>
+    <!-- 에러발생시 -->
+    <h1>{{ form.errors }}</h1>
     {% endif %}
     <!-- 로그인 폼 -->
     <form method="post" action="{% url 'users:signup' %}">
@@ -14,4 +13,5 @@
         {{ form.as_p }}
         <button type="submit">회원가입</button>
     </form>
+</div>
 {% endblock content %}
