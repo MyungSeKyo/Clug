@@ -12,7 +12,7 @@
             <tbody>
                 {% for post in object_list %}
                     <tr>
-                        <td><a href="{% url 'post:detail' pk={{ post.id }} %}">{{ post.id }}</a></td>
+                        <td><a href="{% url 'posts:detail' pk=post.id %}">{{ post.id }}</a></td>
                         <td>{{ post.title }}</td>
                         <td>{{ post.modify_date }}</td>
                         <td>{{ post.author.username }}</td>
@@ -26,9 +26,3 @@
         <a href="{% url 'posts:create' %}">새글쓰기</a>
     </div>
 {% endblock content %}
-
-<script>
-    $('.table > tbody > tr').click(function() {
-        alert('click');
-    });
-</script>
