@@ -1,12 +1,24 @@
 {%  extends "posts/base.html" %}
 
+{% block navbar %}{% endblock %}
+
 {% block content %}
-    <div class="container" style="margin-top: 50px">
+    <div class="container">
+        <h1>{{object.title}}<span class="small"><br/> {{ object.author }} | {{ object.modify_date}}</span></h1>
+        <p>{{object.content|safe}}</p>
+    </div>
+    <div class="container">
         <nav aria-label="...">
             <ul class="pager">
-                <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
-                <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                {% if object.get_prev %}
+                    <li class="previous"><a href="{{ object.get_prev.get_absolute_url }}"><span aria-hidden="true">&larr;</span> 이전글</a></li>
+                {% endif %}
+                {% if object.get_next %}
+                    <li class="next"><a href="{{ object.get_next.get_absolute_url }}">다음글 <span aria-hidden="true">&rarr;</span></a></li>
+                {% endif %}
             </ul>
         </nav>
+        <a href="{% url 'posts:delete' pk=object.id %}">삭제하기</a>
+        /<a href="{% url 'posts:update' pk=object.id %}">수정하기</a>
     </div>
 {% endblock content %}
