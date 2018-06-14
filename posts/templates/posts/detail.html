@@ -27,14 +27,12 @@
         {% endfor %}
         <form action="{% url 'posts:detail' pk=post.id %}" method="post" accept-charset="utf-8">
             {% csrf_token %}
-            <div class="col-lg-6">
-                <div class="input-group">
-                    <input type="text" name='content' class="form-control" placeholder="댓글내용을 입력해주세요.">
-                    <span class="input-group-btn">
+            <div class="input-group">
+                <input type="text" name='content' class="form-control" placeholder="댓글내용을 입력해주세요.">
+                <span class="input-group-btn">
                     <button class="btn btn-default" type="submit">댓글달기</button>
                     </span>
-                </div><!-- /input-group -->
-            </div><!-- /.col-lg-6 -->
+            </div><!-- /input-group -->
         </form>
     </div>
 
