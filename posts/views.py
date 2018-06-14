@@ -9,16 +9,17 @@ from .forms import PostForm
 class PostListView(ListView):
     model = Post
     template_name = 'posts/list.html'
-    paginate_by = 1
-    ordering = ('-modify_date',)
+    paginate_by = 5
+    ordering = ('-create_date',)
 
-    def get_context_data(self, **kwargs):
-        context = super(PostListView, self).get_context_data(**kwargs)
+    def get_queryset(self):
+        queryset = super(PostListView, self).get_queryset()
+        keyword = self.request.GET.get('q')
 
-        # 로그인 성공후 이전 페이지로 리다이렉션 시킴
-        context['next'] = 'a'
-
-        return context
+        if keyword:
+            return queryset.filter(Q(title__contains=keyword) | Q(content__contains=keyword))
+        else:
+            return queryset
 
 
 class PostDetailView(DetailView):
