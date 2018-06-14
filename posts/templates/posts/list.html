@@ -24,5 +24,15 @@
             {% bootstrap_paginate page_obj range=5 show_first_last='true' show_prev_next='false'%}
         </nav>
         <a href="{% url 'posts:create' %}">새글쓰기</a>
+        <form action="{% url 'posts:list' %}" method="get" accept-charset="utf-8">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <input type="text" name='q' class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">검색</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </form>
     </div>
 {% endblock content %}
