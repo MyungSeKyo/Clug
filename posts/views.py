@@ -1,10 +1,10 @@
 from django.urls import reverse_lazy
-from django.views.generic import DeleteView, ListView, DetailView, CreateView, UpdateView, RedirectView
+from django.views.generic import DeleteView, ListView, CreateView, UpdateView
 from django.contrib import messages
 from django.db.models import Q
 from django.views.generic.detail import SingleObjectMixin
 
-from .models import Post, PostComment
+from .models import Post
 from .forms import PostForm
 # Create your views here.
 
@@ -28,14 +28,19 @@ class PostListView(ListView):
 class PostDetailView(SingleObjectMixin, ListView):
     template_name = 'posts/detail.html'
 
-    def get(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object(queryset=Post.objects.all())
-        return super().get(request, *args, **kwargs)
+        return super(PostDetailView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         author = request.user
         content = request.POST.get('content')
         self.object.postcomment_set.create(author=author, content=content)
+        messages.info(request, '댓글이 작성되었습니다.')
+        return self.get(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        return super(PostDetailView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
