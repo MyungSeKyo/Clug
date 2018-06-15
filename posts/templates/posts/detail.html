@@ -4,10 +4,41 @@
 
 {% block content %}
     <div class="container">
-        <h1>{{object.title}}<span class="small"><br/> {{ object.author }} | {{ object.modify_date}}</span></h1>
-        <p>{{object.content|safe}}</p>
-    </div>
-    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1>{{object.title}}<span class="small"> {{ object.author }} | {{ object.modify_date}}</span></h1>
+                <a href="{% url 'posts:delete' pk=object.id %}">삭제하기</a>
+                /<a href="{% url 'posts:update' pk=object.id %}">수정하기</a>
+            </div>
+            <div class="panel-body">
+                <p>{{object.content|safe}}</p>
+            </div>
+        </div>
+        {% if object_list %}
+            <div class="panel panel-default">
+                <div class="panel-heading">댓글</div>
+                <table class="table">
+                    <tbody>
+                    {% for comment in object_list %}
+                        <tr>
+                            <td>
+                                {{ comment.author }}: {{ comment.content }} ({{ comment.created_date }})
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+        <form action="{% url 'posts:detail' pk=post.id %}" method="post" accept-charset="utf-8">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" name='content' class="form-control" placeholder="댓글내용을 입력해주세요.">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">댓글달기</button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
         <nav aria-label="...">
             <ul class="pager">
                 {% if object.get_prev %}
@@ -18,22 +49,5 @@
                 {% endif %}
             </ul>
         </nav>
-        <a href="{% url 'posts:delete' pk=object.id %}">삭제하기</a>
-        /<a href="{% url 'posts:update' pk=object.id %}">수정하기</a>
     </div>
-    <div class="container">
-        {% for comment in object_list %}
-            <p>{{ comment.author }}: {{ comment.content }} ({{ comment.created_date }})</p>
-        {% endfor %}
-        <form action="{% url 'posts:detail' pk=post.id %}" method="post" accept-charset="utf-8">
-            {% csrf_token %}
-            <div class="input-group">
-                <input type="text" name='content' class="form-control" placeholder="댓글내용을 입력해주세요.">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit">댓글달기</button>
-                    </span>
-            </div><!-- /input-group -->
-        </form>
-    </div>
-
 {% endblock content %}
