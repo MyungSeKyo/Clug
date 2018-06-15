@@ -48,7 +48,7 @@ class PostDetailView(SingleObjectMixin, ListView):
         return context
 
     def get_queryset(self):
-        return self.object.postcomment_set.all()
+        return self.object.postcomment_set.order_by('created_date').all()
 
 
 class PostCreateView(CreateView):
